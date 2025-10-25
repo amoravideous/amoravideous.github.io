@@ -2,7 +2,8 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- Ubah viewport ke fixed desktop width supaya mobile menampilkan layout desktop -->
+  <meta name="viewport" content="width=1100" />
   <title>Videy – Trending</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -16,7 +17,6 @@
     <section class="section section--dark">
       <div class="carousel-wrap">
         <div class="carousel" id="trendingCarousel">
-          <!-- card -->
           <article class="card">
             <div class="thumb">
               <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" alt="thumb 1" />
@@ -47,11 +47,8 @@
             </div>
           </article>
 
-          <!-- duplicate so desktop looks centered -->
-          <article class="card placeholder"></article>
         </div>
 
-        <!-- small progress indicator -->
         <div class="progress-dots" aria-hidden="true">
           <span class="dot active"></span>
           <span class="dot"></span>
@@ -60,10 +57,8 @@
       </div>
     </section>
 
-    <!-- separator -->
     <div class="dash-sep"></div>
 
-    <!-- Recommended -->
     <section class="section section--dark">
       <h2 class="section-title">Recommended for You</h2>
 
@@ -102,7 +97,6 @@
       </div>
     </section>
 
-    <!-- Ads strip -->
     <section class="ads-strip">
       <div class="ads-row">
         <div class="ad">
@@ -124,6 +118,7 @@
       <p>© 2025 Videy.co. All rights reserved.</p>
     </footer>
   </main>
+
   <script src="main.js"></script>
 </body>
 </html>
