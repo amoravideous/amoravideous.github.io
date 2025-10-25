@@ -1,18 +1,371 @@
 <!doctype html>
-<title>Web online</title>
-<style>
-  body { text-align: center; padding: 150px; }
-  h1 { font-size: 50px; }
-  body { font: 20px Helvetica, sans-serif; color: #333; }
-  article { display: block; text-align: left; width: 650px; margin: 0 auto; }
-  a { color: #dc8100; text-decoration: none; }
-  a:hover { color: #333; text-decoration: none; }
-</style>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Videy – Trending</title>
+  <style>
+:root{
+  --bg:#000;
+  --card-bg:#fff;
+  --muted:#aaa;
+  --accent1:#ff2d2d;
+  --accent2:#ff6b6b;
+  --footer:#222;
+}
 
-<article>
-    <h1>Kita akan kembali!</h1>
-    <div>
-        
-        <p>&mdash; Tim Teknis</p>
-    </div>
-</article>
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:#fff;
+  font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* header */
+.site-header{
+  padding:18px 12px 6px;
+  text-align:center;
+}
+.site-title{
+  margin:0;
+  font-weight:700;
+  color:#fff;
+  font-size:20px;
+}
+
+/* sections */
+.section{
+  padding:18px 12px 28px;
+}
+.section--dark{
+  background:transparent;
+}
+
+/* carousel container */
+.carousel-wrap{
+  max-width:1100px;
+  margin:0 auto;
+  position:relative;
+}
+
+/* horizontal carousel using scroll-snap */
+.carousel{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  padding:12px 6px 20px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.carousel::-webkit-scrollbar{display:none}
+
+/* card */
+.card{
+  flex:0 0 260px;
+  background:var(--card-bg);
+  color:#111;
+  border-radius:14px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.6);
+  overflow:hidden;
+  scroll-snap-align:center;
+  min-height:280px;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  border:8px solid rgba(255,255,255,0.05);
+}
+.card .thumb{
+  height:150px;
+  overflow:hidden;
+  background:#eee;
+}
+.card .thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.card-body{
+  padding:14px;
+  margin-top:auto;
+  text-align:center;
+}
+.card-title{
+  margin:0 0 12px;
+  font-size:14px;
+  color:#222;
+  min-height:36px;
+}
+
+/* play button style */
+.btn-play{
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  border:0;
+  color:#fff;
+  padding:10px 26px;
+  border-radius:28px;
+  font-weight:700;
+  box-shadow:0 6px 10px rgba(255,50,50,0.18);
+  cursor:pointer;
+}
+
+/* progress dots */
+.progress-dots{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  margin-top:8px;
+}
+.dot{
+  width:12px;height:6px;border-radius:6px;background:#444;display:inline-block;
+}
+.dot.active{background:linear-gradient(90deg,#ff2d2d,#ff6b6b)}
+
+/* dashed separator */
+.dash-sep{
+  border-top:4px dashed rgba(255,255,255,0.08);
+  margin:8px 0 0;
+  max-width:900px;
+  margin-left:auto;margin-right:auto;
+}
+
+/* section title */
+.section-title{
+  text-align:center;
+  color:#fff;
+  font-weight:700;
+  margin:6px 0 12px;
+}
+
+/* ads */
+.ads-strip{
+  background:#000;
+  padding:18px 0;
+}
+.ads-row{
+  max-width:1100px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  padding:0 12px;
+}
+.ad{
+  background:#111;
+  padding:6px;
+  text-align:center;
+  border:6px solid rgba(255,255,255,0.03);
+}
+.ad img{width:100%;height:120px;object-fit:cover;display:block}
+.ad-caption{color:#ff0000;margin:6px 0 0;font-weight:700}
+
+/* footer */
+.site-footer{
+  background:var(--footer);
+  color:#aaa;
+  padding:22px 12px;
+  text-align:center;
+  margin-top:12px;
+}
+
+/* responsive: mobile */
+@media (max-width: 700px){
+  .card{flex:0 0 280px; min-height:260px}
+  .carousel{padding:12px 8px 40px}
+  .ads-row{grid-template-columns:repeat(1,1fr)}
+  .thumb{height:160px}
+  .site-title{font-size:18px}
+  .card-title{font-size:13px}
+  .btn-play{padding:10px 30px}
+  /* make page bottom space like the screenshot */
+  body::after{
+    content:"";
+    display:block;
+    height:110px;
+    width:100%;
+  }
+}
+
+/* desktop tweaks */
+@media (min-width: 1000px){
+  .carousel{gap:40px}
+  .card{flex:0 0 300px}
+}
+    </style>
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <h1 class="site-title">Trending Now</h1>
+    </header>
+
+    <!-- Trending carousel -->
+    <section class="section section--dark">
+      <div class="carousel-wrap">
+        <div class="carousel" id="trendingCarousel">
+          <!-- card -->
+          <article class="card">
+            <div class="thumb">
+              <img src="https://cdn.aceimg.com/90066ebce.jpg" alt="thumb 1" />
+            </div>
+            <div class="card-body">
+              <p class="card-title">Is really big pencil😍😍🦄</p>
+              <a href="https://rmovie955cdn-us.github.io/VqS504oT1.mp4/" class="btn-play">Play</a>
+              
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop" alt="thumb 2" />
+            </div>
+            <div class="card-body">
+              <p class="card-title">Interracial couples</p>
+              <button class="btn-play" href="https://rmovie955cdn-us.github.io/VqS504oT1.mp4">Play</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1507120410856-1f35574c3b45?q=80&w=800&auto=format&fit=crop" alt="thumb 3" />
+            </div>
+            <div class="card-body">
+              <p class="card-title">Everyone Minding Their Own Business</p>
+              <button class="btn-play">Play</button>
+            </div>
+          </article>
+
+          <!-- duplicate so desktop looks centered -->
+          <article class="card placeholder"></article>
+        </div>
+
+        <!-- small progress indicator -->
+        <div class="progress-dots" aria-hidden="true">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- separator -->
+    <div class="dash-sep"></div>
+
+    <!-- Recommended -->
+    <section class="section section--dark">
+      <h2 class="section-title">Recommended for You</h2>
+
+      <div class="carousel-wrap">
+        <div class="carousel" id="recommendedCarousel">
+          <article class="card">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop" alt="rec 1" />
+            </div>
+            <div class="card-body">
+              <p class="card-title">After A long Stressful Day at work and Your Single</p>
+              <button class="btn-play">Play</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=800&auto=format&fit=crop" alt="rec 2" />
+            </div>
+            <div class="card-body">
+              <p class="card-title">blonde</p>
+              <button class="btn-play">Play</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop" alt="rec 3" />
+            </div>
+            <div class="card-body">
+              <p class="card-title">Fly Her Out make her See The City but get your money's worth</p>
+              <button class="btn-play">Play</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ads strip -->
+    <section class="ads-strip">
+      <div class="ads-row">
+        <div class="ad">
+          <img src="https://via.placeholder.com/600x300/ffcc00/000000?text=NEW+MEME" alt="ad1" />
+          <p class="ad-caption">Trade it on any Solana exchange! Click here!</p>
+        </div>
+        <div class="ad">
+          <img src="https://via.placeholder.com/600x300/ffcc00/000000?text=MEME+COIN" alt="ad2" />
+          <p class="ad-caption">Check out this new Solana Memecoin!</p>
+        </div>
+        <div class="ad">
+          <img src="https://via.placeholder.com/600x300/ffcc00/000000?text=BUY+NOW" alt="ad3" />
+          <p class="ad-caption">New memecoin is here! Buy now!</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <p>© 2025 Videy.co. All rights reserved.</p>
+    </footer>
+  </main>
+  </div>
+ <script>
+
+// Simple script to update progress dots based on scroll position
+document.addEventListener('DOMContentLoaded', () => {
+  function wireCarousel(id, dotsSelector) {
+    const carousel = document.getElementById(id);
+    if (!carousel) return;
+    const dots = document.querySelectorAll(dotsSelector + ' .dot');
+
+    function update() {
+      const children = Array.from(carousel.querySelectorAll('.card:not(.placeholder)'));
+      if (children.length === 0) return;
+      // compute nearest card index to center
+      const center = carousel.scrollLeft + carousel.clientWidth / 2;
+      let closestIndex = 0;
+      let closestDist = Infinity;
+      children.forEach((c, i) => {
+        const rect = c.getBoundingClientRect();
+        // compute center relative to carousel
+        const cLeft = c.offsetLeft + c.offsetWidth / 2;
+        const dist = Math.abs(cLeft - center);
+        if (dist < closestDist) { closestDist = dist; closestIndex = i; }
+      });
+      dots.forEach((d, i) => d.classList.toggle('active', i === closestIndex));
+    }
+
+    carousel.addEventListener('scroll', () => {
+      window.requestAnimationFrame(update);
+    });
+    // initial
+    update();
+  }
+
+  wireCarousel('trendingCarousel', '.progress-dots');
+  // recommended carousel doesn't need dots but we keep snap behavior
+});
+    </script>
+</body>
+</html> 
+
+   <!-- Histats.com  START  (aync)-->
+<script type="text/javascript">var _Hasync= _Hasync|| [];
+_Hasync.push(['Histats.start', '1,4573229,4,0,0,0,00010000']);
+_Hasync.push(['Histats.fasi', '1']);
+_Hasync.push(['Histats.track_hits', '']);
+(function() {
+var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+hs.src = ('//s10.histats.com/js15_as.js');
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+})();</script>
+<noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4573229&101" alt="" border="0"></a></noscript>
+<!-- Histats.com  END  -->
