@@ -18,6 +18,15 @@ body{
   -moz-osx-font-smoothing:grayscale;
 }
 
+/* Force desktop width behavior:
+   - min-width memastikan layout tidak “collapse” ke mobile grid
+   - gunakan overflow-x auto pada body agar bisa geser horizontal di HP
+*/
+html, body {
+  min-width:1100px;
+  overflow-x:auto;
+}
+
 /* header */
 .site-header{
   padding:18px 12px 6px;
@@ -56,23 +65,23 @@ body{
 }
 .carousel::-webkit-scrollbar{display:none}
 
-/* card */
+/* card (keep desktop sizes even on mobile) */
 .card{
-  flex:0 0 260px;
+  flex:0 0 300px; /* desktop width */
   background:var(--card-bg);
   color:#111;
   border-radius:14px;
   box-shadow:0 6px 18px rgba(0,0,0,0.6);
   overflow:hidden;
   scroll-snap-align:center;
-  min-height:280px;
+  min-height:320px;
   display:flex;
   flex-direction:column;
   align-items:stretch;
   border:8px solid rgba(255,255,255,0.05);
 }
 .card .thumb{
-  height:150px;
+  height:200px;
   overflow:hidden;
   background:#eee;
 }
@@ -89,9 +98,9 @@ body{
 }
 .card-title{
   margin:0 0 12px;
-  font-size:14px;
+  font-size:16px;
   color:#222;
-  min-height:36px;
+  min-height:44px;
 }
 
 /* play button style */
@@ -99,7 +108,7 @@ body{
   background:linear-gradient(90deg,var(--accent1),var(--accent2));
   border:0;
   color:#fff;
-  padding:10px 26px;
+  padding:12px 32px;
   border-radius:28px;
   font-weight:700;
   box-shadow:0 6px 10px rgba(255,50,50,0.18);
@@ -132,6 +141,7 @@ body{
   color:#fff;
   font-weight:700;
   margin:6px 0 12px;
+  font-size:32px;
 }
 
 /* ads */
@@ -165,26 +175,7 @@ body{
   margin-top:12px;
 }
 
-/* responsive: mobile */
-@media (max-width: 700px){
-  .card{flex:0 0 280px; min-height:260px}
-  .carousel{padding:12px 8px 40px}
-  .ads-row{grid-template-columns:repeat(1,1fr)}
-  .thumb{height:160px}
-  .site-title{font-size:18px}
-  .card-title{font-size:13px}
-  .btn-play{padding:10px 30px}
-  /* make page bottom space like the screenshot */
-  body::after{
-    content:"";
-    display:block;
-    height:110px;
-    width:100%;
-  }
-}
-
-/* desktop tweaks */
-@media (min-width: 1000px){
-  .carousel{gap:40px}
-  .card{flex:0 0 300px}
-}
+/* -----------------------------
+   NOTE: tidak ada media query mobile.
+   Jika di file sebelumnya ada @media (max-width...), hapus atau comment.
+   ----------------------------- */
