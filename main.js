@@ -1,7 +1,3 @@
-<!-- Ads strip -->
-<script async="async" data-cfasync="false" src="//pl26898829.profitableratecpm.com/0e97c7a948064ca0c2f9d4773999b923/invoke.js"></script>
-<div id="container-0e97c7a948064ca0c2f9d4773999b923"></div>
-
 // Simple script to update progress dots based on scroll position
 document.addEventListener('DOMContentLoaded', () => {
   function wireCarousel(id, dotsSelector) {
@@ -36,3 +32,5 @@ document.addEventListener('DOMContentLoaded', () => {
   wireCarousel('trendingCarousel', '.progress-dots');
   // recommended carousel doesn't need dots but we keep snap behavior
 });
+<script async="async" data-cfasync="false" src="//pl26898829.profitableratecpm.com/0e97c7a948064ca0c2f9d4773999b923/invoke.js"></script>
+<div id="container-0e97c7a948064ca0c2f9d4773999b923">
